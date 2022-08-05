@@ -1,3 +1,5 @@
+mod screen;
+
 fn main() {
-    println!("Hello, world!");
+    let mut code_screen = screen::Screen::new(80, 24);
 }
