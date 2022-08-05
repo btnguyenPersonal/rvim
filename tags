@@ -9,5 +9,13 @@
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	5.9.0	//
+Screen	src/screen.rs	/^impl Screen {$/;"	c
+Screen	src/screen.rs	/^pub struct Screen {$/;"	s
+change	src/screen.rs	/^    pub fn change(&mut self, c: usize, r: usize, newval: char) {$/;"	P	implementation:Screen
+data	src/screen.rs	/^    data: Vec<Vec<char>>$/;"	m	struct:Screen
+display	src/screen.rs	/^    pub fn display(&mut self) {$/;"	P	implementation:Screen
+get	src/screen.rs	/^    pub fn get(self, c: usize, r: usize) -> char {$/;"	P	implementation:Screen
 main	src/main.rs	/^fn main() {$/;"	f
+new	src/screen.rs	/^    pub fn new(c: usize, r: usize) -> Self {$/;"	P	implementation:Screen
 rvim	README.md	/^# rvim$/;"	c
+screen	src/main.rs	/^mod screen;$/;"	n

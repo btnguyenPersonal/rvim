@@ -5,7 +5,7 @@ pub struct Screen {
 impl Screen {
     pub fn new(c: usize, r: usize) -> Self {
         Screen {
-            data: vec![vec![' '; c]; r]
+            data: vec![vec!['.'; c]; r]
         }
     }
     pub fn display(&mut self) {
@@ -18,5 +18,8 @@ impl Screen {
     }
     pub fn change(&mut self, c: usize, r: usize, newval: char) {
         self.data[r][c] = newval;
+    }
+    pub fn get(self, c: usize, r: usize) -> char {
+        self.data[r][c]
     }
 }
