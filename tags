@@ -11,11 +11,23 @@
 !_TAG_PROGRAM_VERSION	5.9.0	//
 Screen	src/screen.rs	/^impl Screen {$/;"	c
 Screen	src/screen.rs	/^pub struct Screen {$/;"	s
-change	src/screen.rs	/^    pub fn change(&mut self, c: usize, r: usize, newval: char) {$/;"	P	implementation:Screen
 data	src/screen.rs	/^    data: Vec<Vec<char>>$/;"	m	struct:Screen
-display	src/screen.rs	/^    pub fn display(&mut self) {$/;"	P	implementation:Screen
+display	src/screen.rs	/^    pub fn display(&mut self) -> String{$/;"	P	implementation:Screen
+display_0_by_0_case	src/screen.rs	/^    fn display_0_by_0_case() {$/;"	f	module:tests
+display_after_set_case	src/screen.rs	/^    fn display_after_set_case() {$/;"	f	module:tests
+display_default_case	src/screen.rs	/^    fn display_default_case() {$/;"	f	module:tests
 get	src/screen.rs	/^    pub fn get(self, c: usize, r: usize) -> char {$/;"	P	implementation:Screen
+get_returns_correct_default_val	src/screen.rs	/^    fn get_returns_correct_default_val() {$/;"	f	module:tests
+get_returns_correct_val_after_set	src/screen.rs	/^    fn get_returns_correct_val_after_set() {$/;"	f	module:tests
 main	src/main.rs	/^fn main() {$/;"	f
 new	src/screen.rs	/^    pub fn new(c: usize, r: usize) -> Self {$/;"	P	implementation:Screen
+new_creates_0_length_screen	src/screen.rs	/^    fn new_creates_0_length_screen() {$/;"	f	module:tests
+new_creates_80_24_screen	src/screen.rs	/^    fn new_creates_80_24_screen() {$/;"	f	module:tests
+new_creates_correct_dimensions	src/screen.rs	/^    fn new_creates_correct_dimensions() {$/;"	f	module:tests
 rvim	README.md	/^# rvim$/;"	c
 screen	src/main.rs	/^mod screen;$/;"	n
+set	src/screen.rs	/^    pub fn set(&mut self, c: usize, r: usize, newval: char) {$/;"	P	implementation:Screen
+set_default_case	src/screen.rs	/^    fn set_default_case() {$/;"	f	module:tests
+set_panic_larger_col	src/screen.rs	/^    fn set_panic_larger_col() {$/;"	f	module:tests
+set_panic_larger_row	src/screen.rs	/^    fn set_panic_larger_row() {$/;"	f	module:tests
+tests	src/screen.rs	/^mod tests {$/;"	n
