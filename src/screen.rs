@@ -1,4 +1,6 @@
 use std::io;
+use std::io::{Write};
+use std::panic;
 use tui::{
     backend::CrosstermBackend,
     Terminal,
@@ -6,17 +8,20 @@ use tui::{
     widgets::{Block, Paragraph},
     style::{Style, Color},
 };
+use crossterm::{execute, terminal, cursor};
 
 pub struct Screen {
     data: Vec<Vec<char>>
 }
 
 impl Screen {
+
     pub fn new(c: usize, r: usize) -> Self {
         Screen {
             data: vec![vec![' '; c]; r]
         }
     }
+
     pub fn display(&mut self) -> String{
         let mut output = "".to_string();
         for r in &self.data {
@@ -27,12 +32,14 @@ impl Screen {
         }
         output
     }
+
     pub fn set(&mut self, c: usize, r: usize, newval: char) {
         if c >= self.data[r].len() || r >= self.data.len() {
             panic!("Tried to set element with bigger index than screen length");
         }
         self.data[r][c] = newval;
     }
+
     pub fn get(self, c: usize, r: usize) -> char {
         if c >= self.data[r].len() || r >= self.data.len() {
             panic!("Tried to get element with bigger index than screen length");
@@ -41,7 +48,12 @@ impl Screen {
     }
 
     pub fn start_render(mut self) {
-        let mut term = Terminal::new(CrosstermBackend::new(io::stdout())).unwrap();
+        let mut stdout = io::stdout();
+        execute!(stdout, terminal::EnterAlternateScreen).unwrap();
+        execute!(stdout, cursor::Hide).unwrap();
+        execute!(stdout, terminal::Clear(terminal::ClearType::All)).unwrap();
+        terminal::enable_raw_mode().unwrap();
+        let mut term = Terminal::new(CrosstermBackend::new(stdout)).unwrap();
         loop {
             term.draw(|rect| {
                 let size = rect.size();
