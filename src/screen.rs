@@ -1,3 +1,12 @@
+use std::io;
+use tui::{
+    backend::CrosstermBackend,
+    Terminal,
+    layout::{Constraint, Direction, Layout, Alignment},
+    widgets::{Block, Paragraph},
+    style::{Style, Color},
+};
+
 pub struct Screen {
     data: Vec<Vec<char>>
 }
@@ -30,6 +39,43 @@ impl Screen {
         }
         self.data[r][c]
     }
+
+    pub fn start_render(mut self) {
+        let mut term = Terminal::new(CrosstermBackend::new(io::stdout())).unwrap();
+        loop {
+            term.draw(|rect| {
+                let size = rect.size();
+                let chunks = Layout::default()
+                    .direction(Direction::Vertical)
+                    .constraints([Constraint::Length(1), Constraint::Min(2), Constraint::Length(1)].as_ref(),).split(size);
+                let tabs = Paragraph::new("Tabs")
+                    .style(Style::default().fg(Color::LightCyan))
+                    .alignment(Alignment::Center)
+                    .block(
+                        Block::default()
+                        .style(Style::default().fg(Color::White))
+                        );
+                let edit = Paragraph::new(Screen::display(&mut self))
+                    .style(Style::default().fg(Color::LightCyan))
+                    .alignment(Alignment::Left)
+                    .block(
+                        Block::default()
+                        .style(Style::default().fg(Color::White))
+                        );
+                let commands = Paragraph::new("Commands")
+                    .style(Style::default().fg(Color::LightCyan))
+                    .alignment(Alignment::Center)
+                    .block(
+                        Block::default()
+                        .style(Style::default().fg(Color::White))
+                        );
+                rect.render_widget(tabs, chunks[0]);
+                rect.render_widget(edit, chunks[1]);
+                rect.render_widget(commands, chunks[2]);
+            });
+        }
+    }
+
 }
 
 #[cfg(test)]
